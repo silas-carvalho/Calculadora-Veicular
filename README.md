@@ -1,4 +1,4 @@
-# Cálculo de Markup v1
+# Calculadora Veicular v1
 
 O projeto "Calculadora Veicular v1" está em desenvolvimento e visa oferecer uma ferramenta prática e eficiente para motoristas e proprietários de veículos. Com ele, será possível calcular a autonomia do veículo e a média de consumo de combustível de maneira simples e precisa.
 
