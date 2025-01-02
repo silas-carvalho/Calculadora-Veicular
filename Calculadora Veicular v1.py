@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Dec 20 09:14:37 2024
+Created on Thu Jan  2 18:16:14 2025
 
 @author: Silas Carvalho
 
@@ -98,9 +98,11 @@ def obter_nome_combustivel(tipo_combustivel):
         COMBUSTIVEL_DIESEL: "diesel"
     }.get(tipo_combustivel, "desconhecido")
 
-def calcular_autonomia(preco_combustivel, distancia, consumo_veiculo):
+def calcular_autonomia(preco_combustivel, distancia, consumo_veiculo, margem_extra=1):
     litros_necessarios = distancia / consumo_veiculo
     custo_total = litros_necessarios * preco_combustivel
+    litros_necessarios *= margem_extra
+    custo_total *= margem_extra
     return round_decimal(litros_necessarios), round_decimal(custo_total)
 
 def calcular_combustivel(tipo_combustivel):
@@ -108,7 +110,13 @@ def calcular_combustivel(tipo_combustivel):
     distancia = input_valor("Digite a distância a ser percorrida (km): ", "decimal")
     consumo_veiculo = input_valor(f"Digite o consumo do veículo com {combustivel} (km/l): ", "decimal")
     preco_combustivel = input_valor(f"Digite o preço do {combustivel} (R$): ", "decimal")
-    litros, custo = calcular_autonomia(preco_combustivel, distancia, consumo_veiculo)
+    adicionar_margem = input_valor("Deseja adicionar uma margem de segurança (%) para cobrir possíveis imprevistos? (s/n) (recomendado): ", "s_n")
+    if adicionar_margem == 's':
+        margem = input_valor("Digite a margem de segurança (%): ", "decimal")
+        margem_extra = 1 + (margem / 100)
+    else:
+        margem_extra = 1
+    litros, custo = calcular_autonomia(preco_combustivel, distancia, consumo_veiculo, margem_extra)
     print(f"\n{Fore.LIGHTGREEN_EX}Para percorrer {distancia} km, você precisará de {litros:.2f} litros de {combustivel}, com um custo de R$ {custo:.2f}.{Style.RESET_ALL}")
 
 def calcular_media_combustivel(distancia, litros_consumidos, tipo_combustivel):
@@ -157,6 +165,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
 
 
 
